@@ -1,40 +1,42 @@
 <?php 
 namespace App\Repositories;
 
-use App\Models\Product;
+use App\DAO\Product;
+use App\Models\Product as Products;
 
-class ProductRepository implements ProductRepositoryInterface
+
+class ProductRepo implements ProductRepoInterface
 {
-    public function getAll()
+    public function getAllProduct()
     {
-        return Product::all(); // Fetch all products
+        return Products::all(); // Fetch all products
     }
 
-    public function getById($id)
+    public function getByProductId($id)
     {
-        return Product::find($id); // Find a product by its ID
+        return Products::find($id); 
     }
 
-    public function create(array $data)
+    public function createProduct(array $data)
     {
-        return Product::create($data); // Create a new product
+        return Products::create($data); 
     }
 
-    public function update($id, array $data)
+    public function updateProduct($id, array $data)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
-            $product->update($data); // Update product details
+            $product->update($data); 
             return $product;
         }
         return null;
     }
 
-    public function delete($id)
+    public function deleteProduct($id)
     {
-        $product = Product::find($id);
+        $product = Products::find($id);
         if ($product) {
-            $product->delete(); // Delete a product
+            $product->delete(); 
             return true;
         }
         return false;

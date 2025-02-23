@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\ProductService;
 use App\Http\Requests\ProductReqValidation;
 
 class ProductController extends Controller
 {
+    protected $productService;
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
     public function getProducts(Request $req)
     {
         if ($req->isMethod('GET')) {
-            return $req->all();
+            $productBO = $this->productService->getAllProducts();
+            return response()->json($productBO, 200);
             if (isset($id) && !empty($id) && is_numeric($id) && $id > 0) {
                 return $id;
             } else {
