@@ -25,5 +25,6 @@ Route::prefix('/v1')->group(function () {
         Route::post('products/', 'getProducts');
         Route::put('products/{id?}', 'getProducts');
         Route::delete('products/{id?}', 'getProducts');
+        Route::get('/categories', 'getProducts');
     });
 });

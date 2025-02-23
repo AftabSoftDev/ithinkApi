@@ -13,7 +13,7 @@ class ProductReqValidation extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class ProductReqValidation extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:225',
+            'description' => 'required|string',
+            'sku' => "required|unique:products,sku," . $this->route('id'),
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Product name is required.',
+            'category_id.required' => 'Category Id is required.',
+            'price.required' => 'Product price is required and must be a number.',
         ];
     }
 }

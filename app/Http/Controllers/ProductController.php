@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductReqValidation;
 
 class ProductController extends Controller
 {
@@ -18,5 +19,19 @@ class ProductController extends Controller
         } else {
             return http_response_code(405);
         }
+    }
+    public function store(ProductReqValidation $request)
+    {
+        // The incoming request is already validated at this point.
+        $validatedData = $request->validated();
+        // $product = $this->productService->createProduct($validatedData);
+        // return response()->json($product, 201);
+    }
+    public function update(ProductReqValidation $request)
+    {
+        // The incoming request is already validated at this point.
+        $validatedData = $request->validated();
+        // $product = $this->productService->createProduct($validatedData);
+        // return response()->json($product, 201);
     }
 }
