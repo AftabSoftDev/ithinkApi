@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\ProductRepoInterface;
-use App\Repositories\ProductRepo;
+use App\Repository\ProductRepo;
+use App\Repository\ProductRepoInterface;
+
 // use App\Repositories\CategoryRepositoryInterface;
 // use App\Repositories\CategoryRepository;
 

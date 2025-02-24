@@ -1,5 +1,6 @@
-<?php 
-namespace App\Repositories;
+<?php
+
+namespace App\Repository;
 
 use App\DAO\Product;
 use App\Models\Product as Products;
@@ -9,12 +10,13 @@ class ProductRepo implements ProductRepoInterface
 {
     public function getAllProduct()
     {
-        return Products::all(); // Fetch all products
+        $product = Products::all();
+        return $product;
     }
 
     public function getByProductId($id)
     {
-        return Products::find($id); 
+        return Products::find($id);     
     }
 
     public function createProduct(array $data)

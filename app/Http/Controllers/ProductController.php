@@ -15,14 +15,16 @@ class ProductController extends Controller
     }
     public function getProducts(Request $req)
     {
+
         if ($req->isMethod('GET')) {
-            $productBO = $this->productService->getAllProducts();
-            return response()->json($productBO, 200);
+            $id = isset($req->id) ? (int) $req->input('id') : 0;
+            $productBO = [];
             if (isset($id) && !empty($id) && is_numeric($id) && $id > 0) {
-                return $id;
+                $productBO = $this->productService->getProductById($id);
             } else {
-                return "No product ID provided";
+                $productBO = $this->productService->getAllProducts();
             }
+            return response()->json($productBO, 200);
         } else {
             return http_response_code(405);
         }

@@ -2,7 +2,7 @@
 
 namespace App\BO;
 
-class Product
+class ProductBO
 {
     public $id;
     public $name;
@@ -15,7 +15,7 @@ class Product
 
     public function __construct($id, $name, $price, $sku, $category_id, $description, $created_at, $updated_at)
     {
-        $this->id = $id;
+        $this->id = $id;        
         $this->name = $name;
         $this->price = $price;
         $this->sku = $sku;
