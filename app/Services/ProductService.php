@@ -105,7 +105,7 @@ class ProductService
         }
     }
 
-    public function delete($id)
+    public function deleteProduct($id)
     {
         if (isset($id) && !empty($id)) {
 
