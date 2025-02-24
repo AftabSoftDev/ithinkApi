@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Requests\ProductReqValidation;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
@@ -24,23 +25,59 @@ class ProductController extends Controller
             } else {
                 $productBO = $this->productService->getAllProducts();
             }
-            return response()->json($productBO, 200);
+            return $productBO;
         } else {
             return http_response_code(405);
         }
     }
-    public function store(ProductReqValidation $request)
+    public function createProduct(ProductReqValidation $request)
     {
-        // The incoming request is already validated at this point.
-        $validatedData = $request->validated();
-        // $product = $this->productService->createProduct($validatedData);
-        // return response()->json($product, 201);
+
+        if ($request->isMethod('POST')) {
+            try {
+                $validatedData = $request->validated();
+                $product = $this->productService->createProduct($validatedData);
+                return $product;
+            } catch (ValidationException $e) {
+                return $e->errors();
+            }
+        } else {
+            return response()->json(['code' => 404, 'message' => 'Incorrect http Method'], 405);
+        }
     }
-    public function update(ProductReqValidation $request)
+    public function update(ProductReqValidation $request, $id)
     {
-        // The incoming request is already validated at this point.
-        $validatedData = $request->validated();
-        // $product = $this->productService->createProduct($validatedData);
-        // return response()->json($product, 201);
+        if ($request->isMethod('PUT') && isset($id) && !empty($id) && $id > 0) {
+            try {
+
+                $validatedData = $request->validated();
+                $product = $this->productService->updateProduct($id, $validatedData);
+                return $product;
+            } catch (ValidationException $e) {
+                return $e->errors();
+            }
+        } else {
+            return response()->json(['code' => 404, 'message' => 'Soemthing went wrong'], 405);
+        }
+    }
+    public function delete($id)
+    {
+        if (isset($id) && !empty($id) && $id > 0) {
+            $product = $this->productService->deleteProduct($id);
+            return $product;
+        } else {
+            return response()->json(['code' => 404, 'message' => 'Soemthing went wrong'], 405);
+        }
+    }
+    public function getCategory(Request $req)
+    {
+
+        if ($req->isMethod('GET')) {
+            $productBO = [];
+            $productBO = $this->productService->getAllCategory();
+            return $productBO;
+        } else {
+            return http_response_code(405);
+        }
     }
 }

@@ -4,24 +4,26 @@ namespace App\Repository;
 
 use App\DAO\Product;
 use App\Models\Product as Products;
+use App\Models\Category;
 
 
 class ProductRepo implements ProductRepoInterface
 {
     public function getAllProduct()
     {
-        $product = Products::all();
+        $product = Products::paginate(10);
         return $product;
     }
 
     public function getByProductId($id)
     {
-        return Products::find($id);     
+        return Products::where('id', $id)->first();     
     }
 
     public function createProduct(array $data)
     {
-        return Products::create($data); 
+        $product = Products::create($data);
+        return $product;
     }
 
     public function updateProduct($id, array $data)
@@ -42,5 +44,10 @@ class ProductRepo implements ProductRepoInterface
             return true;
         }
         return false;
+    }
+    public function getAllCategory()
+    {
+        $product = Category::with('product')->get();
+        return $product;
     }
 }
