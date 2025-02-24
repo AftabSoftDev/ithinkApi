@@ -8,7 +8,7 @@
 
 4) Change Database credentials in env file
 
-4) Start project with artisan command
+5) Start project with artisan command
 
-5) Test API endpoints in Postman
+6) Test API endpoints in Postman
 
